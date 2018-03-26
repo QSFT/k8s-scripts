@@ -3,7 +3,7 @@ INTERVAL=$2
 export TZ=Europe/Moscow
 
 NAME=$(sudo cat /etc/kubernetes/azure.json |
-       awk '/resourceGroup/{print $2}' | 
+       awk "/resourceGroup/{print $2}" |
        sed s/\",// | sed s/\"//)
 
 echo $NAME
@@ -18,12 +18,12 @@ KUBE=$(kubectl get node && \
     ./pods.sh)
 
 STATUS=":red_circle:"
-NOTIFICATION='<!channel> '
+NOTIFICATION="<!channel> "
 
 BAD=$(echo $KUBE | grep -E "NotReady|unhealthy")
 if [ ${#BAD} -eq 0 ];then
     STATUS=":green_apple:"
-    NOTIFICATION=''
+    NOTIFICATION=""
 fi
 
 RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
