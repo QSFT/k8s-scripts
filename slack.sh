@@ -1,5 +1,6 @@
 SLACK_URL=$1
 INTERVAL=$2
+ETCD_ARGS=$3
 export TZ=Europe/Moscow
 
 NAME=$(sudo cat /etc/kubernetes/azure.json |
@@ -13,7 +14,7 @@ while true; do
 date
 
 KUBE=$(kubectl get node && \
-    etcdctl cluster-health && \
+    etcdctl $ETCD_ARGS cluster-health && \
     ./nodes_disk.sh && \
     ./pods.sh)
 
