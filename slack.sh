@@ -15,8 +15,8 @@ date
 
 KUBE=$(kubectl get node && \
     etcdctl $ETCD_ARGS cluster-health && \
-    ./nodes_disk.sh && \
-    ./pods.sh)
+    sh ./nodes_disk.sh && \
+    sh ./pods.sh)
 
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
