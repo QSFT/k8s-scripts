@@ -18,6 +18,8 @@ KUBE=$(kubectl get node && \
     sh ./nodes_disk.sh && \
     sh ./pods.sh)
 
+echo "parsing status result: $KUBE"
+
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
 
