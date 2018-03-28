@@ -18,7 +18,7 @@ KUBE=$(kubectl get node && \
     sh ./nodes_disk.sh && \
     sh ./pods.sh)
 
-echo "parsing status result: $KUBE"
+echo "parse status result"
 
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
@@ -29,6 +29,7 @@ if [ ${#BAD} -eq 0 ];then
     NOTIFICATION=''
 fi
 
+echo "send status: $RES"
 RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
 curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
 
