@@ -27,10 +27,11 @@ BAD=$(echo $KUBE | grep -E "NotReady|unhealthy")
 if [ ${#BAD} -eq 0 ];then
     STATUS=":green_apple:"
     NOTIFICATION=''
+    KUBE=''
 fi
 
-echo "send status: $RES"
 RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
+echo "send status: $RES"
 curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
 
 sleep $INTERVAL
