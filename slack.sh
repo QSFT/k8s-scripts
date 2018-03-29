@@ -8,8 +8,6 @@ NAME=$(sudo cat /etc/kubernetes/azure.json |
 
 echo $NAME
 
-while true; do 
-
 date
 
 KUBE=$(kubectl get node && \
@@ -31,5 +29,3 @@ RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
 curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
 
 sleep $INTERVAL
-
-done
