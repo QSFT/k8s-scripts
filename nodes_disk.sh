@@ -1,5 +1,3 @@
-echo "checking disk usage on nodes"
-
 NODES=`kubectl get nodes --no-headers | awk '{print $1}'`  
 
 for n in $NODES;do

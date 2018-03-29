@@ -30,7 +30,6 @@ if [ ${#BAD} -eq 0 ];then
 fi
 
 RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
-echo "send status: $RES"
 curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
 
 sleep $INTERVAL
