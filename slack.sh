@@ -14,8 +14,8 @@ date
 
 KUBE=$(kubectl get node && \
     sudo etcdctl cluster-health && \
-    sh ./nodes_disk.sh && \
-    sh ./pods.sh)
+    /bin/bash ./nodes_disk.sh && \
+    /bin/bash ./pods.sh)
 
 echo "parse status result"
 
