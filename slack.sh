@@ -23,7 +23,7 @@ NOTIFICATION='<!channel> '
 BAD=$(echo $KUBE | grep -E "NotReady|unhealthy")
 if [ ${#BAD} -eq 0 ];then
     STATUS=":green_apple:"
-    NOTIFICATION=''
+    NOTIFICATION='cluster is healthy'
     KUBE=''
 fi
 
