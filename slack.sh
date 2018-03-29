@@ -14,8 +14,8 @@ date
 
 KUBE=$(kubectl get node && \
     sudo etcdctl cluster-health && \
-    /bin/bash ./nodes_disk.sh && \
-    /bin/bash ./pods.sh)
+    ./nodes_disk.sh && \
+    ./pods.sh)
 
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
