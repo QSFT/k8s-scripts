@@ -1,5 +1,4 @@
 SLACK_URL=$1
-export TZ=Europe/Moscow
 
 NAME=$(sudo cat /etc/kubernetes/azure.json |
        awk '/resourceGroup/{print $2}' | 
