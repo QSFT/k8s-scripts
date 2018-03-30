@@ -1,5 +1,4 @@
 SLACK_URL=$1
-INTERVAL=$2
 export TZ=Europe/Moscow
 
 NAME=$(sudo cat /etc/kubernetes/azure.json |
@@ -27,5 +26,3 @@ fi
 
 RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
 curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
-
-sleep $INTERVAL
