@@ -5,4 +5,3 @@ for n in $NODES;do
    ssh -oServerAliveInterval=5 -oConnectTimeout=10 -oConnectionAttempts=1 -oStrictHostKeyChecking=no $n df -h | grep sda
    ssh -oServerAliveInterval=5 -oConnectTimeout=10 -oConnectionAttempts=1 -oStrictHostKeyChecking=no $n df -i | grep sda
 done
-

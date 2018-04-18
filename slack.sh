@@ -1,6 +1,5 @@
 SLACK_URL=$1
-INTERVAL=$2
-export TZ=Europe/Moscow
+NAMESPACES=$2
 
 NAME=$(sudo cat /etc/kubernetes/azure.json |
        awk '/resourceGroup/{print $2}' | 
@@ -8,14 +7,12 @@ NAME=$(sudo cat /etc/kubernetes/azure.json |
 
 echo $NAME
 
-while true; do 
-
 date
 
 KUBE=$(kubectl get node && \
-    etcdctl cluster-health && \
+    sudo etcdctl cluster-health && \
     ./nodes_disk.sh && \
-    ./pods.sh)
+    ./pods.sh $NAMESPACES)
 
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
@@ -24,11 +21,8 @@ BAD=$(echo $KUBE | grep -E "NotReady|unhealthy")
 if [ ${#BAD} -eq 0 ];then
     STATUS=":green_apple:"
     NOTIFICATION=''
+    KUBE='cluster is healthy'
 fi
 
 RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
 curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
-
-sleep $INTERVAL
-
-done
