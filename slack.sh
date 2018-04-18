@@ -1,4 +1,5 @@
 SLACK_URL=$1
+NAMESPACES=$2
 
 NAME=$(sudo cat /etc/kubernetes/azure.json |
        awk '/resourceGroup/{print $2}' | 
@@ -11,7 +12,7 @@ date
 KUBE=$(kubectl get node && \
     sudo etcdctl cluster-health && \
     ./nodes_disk.sh && \
-    ./pods.sh)
+    ./pods.sh $NAMESPACES)
 
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
