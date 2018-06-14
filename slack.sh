@@ -9,7 +9,8 @@ echo $NAME
 
 date
 
-KUBE=$(kubectl get node && \
+KUBE=$(date && \
+       kubectl get node && \
        sudo etcdctl cluster-health && \
        ./nodes_disk.sh)
 
@@ -32,6 +33,6 @@ fi
 
 
 rm -f /tmp/slackmsg
-RES="{\"text\":\"$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")\"}"
-echo $RES > /tmp/slackmsg
+RES="{\"text\":\"$(date) ${NOTIFICATION}${STATUS} *${NAME}* ${KUBE}\"}"
+echo -e $RES > /tmp/slackmsg
 curl -XPOST $SLACK_URL -d "@/tmp/slackmsg";
