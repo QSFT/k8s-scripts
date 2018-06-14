@@ -33,6 +33,6 @@ fi
 
 
 rm -f /tmp/slackmsg
-RES="{\"text\":\"$(date)\n${NOTIFICATION}${STATUS} *${NAME}*\n${KUBE}\"}"
+RES="{\"text\":\"$(date) \n${NOTIFICATION}${STATUS} *${NAME}* \n${KUBE}\"}"
 echo -e $RES > /tmp/slackmsg
 curl -XPOST $SLACK_URL -d "@/tmp/slackmsg";
