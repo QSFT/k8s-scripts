@@ -11,18 +11,13 @@ date
 
 KUBE=$(kubectl get node && \
     sudo etcdctl cluster-health && \
-    ./nodes_disk.sh && \
     ./pods.sh $NAMESPACES)
 
 STATUS=":red_circle:"
 NOTIFICATION='<!channel> '
 
 BAD=$(echo $KUBE | grep -E "NotReady|unhealthy")
-if [ ${#BAD} -eq 0 ];then
-    STATUS=":green_apple:"
-    NOTIFICATION=''
-    KUBE='cluster is healthy'
+if [ ${#BAD} -ne 0 ];then
+  RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")  
+  curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
 fi
-
-RES=$(date && echo ${NOTIFICATION}$STATUS" "*$NAME* && echo "${KUBE}")
-curl -XPOST $SLACK_URL -d "{\"text\":\"$RES\"}";
